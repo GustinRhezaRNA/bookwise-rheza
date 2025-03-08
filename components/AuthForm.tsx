@@ -8,9 +8,9 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { FIELD_NAMES, FIELD_TYPES } from '@/app/constants';
-import ImageUpload from './ImageUpload';
 import { toast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
+import FileUpload from './FileUpload';
 
 interface Props<T> extends FieldValues {
   schema: ZodType<T>;
@@ -37,7 +37,7 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
       });
 
       router.push('/');
-    }else{
+    } else {
       toast({
         title: isSignIn ? 'Sign in failed' : 'Sign up failed',
         description: result.error || 'An error occurred',
@@ -65,7 +65,14 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
                   <FormLabel className="capitalize">{FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}</FormLabel>
                   <FormControl>
                     {field.name === 'universityCard' ? (
-                      <ImageUpload onFileChange={field.onChange} />
+                      <FileUpload
+                        type="image"
+                        accept="image/*"
+                        placeholder="Upload Your ID Card"
+                        variant="dark"
+                        folder="ids"
+                        onFileChange={field.onChange}
+                      />
                     ) : (
                       <Input
                         required

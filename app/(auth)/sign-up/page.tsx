@@ -1,7 +1,7 @@
 'use client';
 
 import AuthForm from '@/components/AuthForm';
-import { signUp } from '@/lib/action.ts/auth';
+import { signUp } from '@/lib/action/auth';
 import { signUpSchema } from '@/lib/validation';
 import React from 'react';
 
